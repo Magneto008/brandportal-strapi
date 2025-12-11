@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_content_card_with_infos",
+  "info": {
+    "displayName": "card-with-info"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "url": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "infoTitle": {
+      "type": "string",
+      "default": "Additional Information"
+    },
+    "infoItems": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}

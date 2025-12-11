@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "elements_pages",
+  "info": {
+    "singularName": "elements-page",
+    "pluralName": "elements-pages",
+    "displayName": "Page"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "cards": {
+      "type": "component",
+      "component": "content.card-with-info",
+      "repeatable": true
+    },
+    "pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::elements-page.elements-page"
+    }
+  }
+}

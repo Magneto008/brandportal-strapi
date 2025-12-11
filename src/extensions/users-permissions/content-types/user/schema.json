@@ -1,0 +1,77 @@
+{
+  "collectionName": "up_users",
+  "info": {
+    "singularName": "user",
+    "pluralName": "users",
+    "displayName": "User",
+    "description": "Extended user model for Brand Portal"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "unique": true,
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "minLength": 6,
+      "unique": true,
+      "required": true
+    },
+    "provider": {
+      "type": "string"
+    },
+    "password": {
+      "type": "password",
+      "required": true,
+      "private": true
+    },
+    "resetPasswordToken": {
+      "type": "string",
+      "private": true
+    },
+    "confirmationToken": {
+      "type": "string",
+      "private": true
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false
+    },
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role"
+    },
+
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "market": {
+      "type": "string"
+    },
+    "continentalContactEmail": {
+      "type": "email"
+    },
+
+    "approvedByAdmin": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

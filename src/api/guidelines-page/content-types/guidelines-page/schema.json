@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "guidelines_pages",
+  "info": {
+    "singularName": "guidelines-page",
+    "pluralName": "guidelines-pages",
+    "displayName": "GuidelinesPage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::elements-page.elements-page"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_language_items",
+  "info": {
+    "displayName": "languageItem"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

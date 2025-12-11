@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_content_auth_actions",
+  "info": {
+    "displayName": "authActions"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "login",
+        "logout"
+      ]
+    },
+    "requiresAuth": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer"
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "config": {}
+}

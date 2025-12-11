@@ -1,0 +1,48 @@
+{
+  "kind": "singleType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "claimImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "default": "Search"
+    },
+    "navItems": {
+      "type": "component",
+      "component": "content.nav-items",
+      "repeatable": true
+    },
+    "languageItems": {
+      "type": "component",
+      "component": "content.language-item",
+      "repeatable": true
+    },
+    "authActions": {
+      "type": "component",
+      "component": "content.auth-actions",
+      "repeatable": true
+    }
+  }
+}
