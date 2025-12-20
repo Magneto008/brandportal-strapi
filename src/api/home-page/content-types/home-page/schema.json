@@ -33,7 +33,7 @@
     "quickGuideTitle": {
       "type": "string"
     },
-    "Cards": {
+    "cards": {
       "type": "component",
       "component": "content.card",
       "repeatable": true

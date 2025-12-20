@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_section_editorial_text_sections",
+  "info": {
+    "displayName": "editorial-text-section",
+    "icon": "pencil"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

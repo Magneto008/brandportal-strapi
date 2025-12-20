@@ -17,7 +17,7 @@ export interface ContentAuthActions extends Struct.ComponentSchema {
 export interface ContentCard extends Struct.ComponentSchema {
   collectionName: 'components_content_cards';
   info: {
-    displayName: 'Card';
+    displayName: 'card';
   };
   attributes: {
     description: Schema.Attribute.Text;
@@ -42,6 +42,17 @@ export interface ContentCardWithInfo extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'Additional Information'>;
     title: Schema.Attribute.String;
     url: Schema.Attribute.String;
+  };
+}
+
+export interface ContentFooterItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_footer_items';
+  info: {
+    displayName: 'footerItem';
+  };
+  attributes: {
+    externalLink: Schema.Attribute.String;
+    label: Schema.Attribute.String;
   };
 }
 
@@ -71,14 +82,76 @@ export interface ContentNavItems extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionDividerSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_divider_sections';
+  info: {
+    displayName: 'divider-section';
+  };
+  attributes: {
+    marginBottom: Schema.Attribute.Integer;
+    marginTop: Schema.Attribute.Integer;
+    style: Schema.Attribute.Enumeration<['line', 'space']> &
+      Schema.Attribute.DefaultTo<'line'>;
+  };
+}
+
+export interface SectionEditorialTextSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_editorial_text_sections';
+  info: {
+    displayName: 'editorial-text-section';
+    icon: 'pencil';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+  };
+}
+
+export interface SectionImageSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_image_sections';
+  info: {
+    displayName: 'image-section';
+    icon: 'landscape';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface SectionPageHeaderSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_page_header_sections';
+  info: {
+    displayName: 'page-header-section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionVideoSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_video_sections';
+  info: {
+    displayName: 'video-section';
+  };
+  attributes: {
+    video: Schema.Attribute.Media<'videos'>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.auth-actions': ContentAuthActions;
       'content.card': ContentCard;
       'content.card-with-info': ContentCardWithInfo;
+      'content.footer-item': ContentFooterItem;
       'content.language-item': ContentLanguageItem;
       'content.nav-items': ContentNavItems;
+      'section.divider-section': SectionDividerSection;
+      'section.editorial-text-section': SectionEditorialTextSection;
+      'section.image-section': SectionImageSection;
+      'section.page-header-section': SectionPageHeaderSection;
+      'section.video-section': SectionVideoSection;
     }
   }
 }

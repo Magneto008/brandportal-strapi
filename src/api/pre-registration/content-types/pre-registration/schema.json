@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pre_registrations",
+  "info": {
+    "singularName": "pre-registration",
+    "pluralName": "pre-registrations",
+    "displayName": "Pre Registration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "token": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "used": {
+      "type": "boolean",
+      "default": false
+    },
+    "expiresAt": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

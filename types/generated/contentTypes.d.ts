@@ -430,6 +430,45 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrandPageBrandPage extends Struct.CollectionTypeSchema {
+  collectionName: 'brand_pages';
+  info: {
+    displayName: 'BrandPages';
+    pluralName: 'brand-pages';
+    singularName: 'brand-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::brand-page.brand-page'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'section.page-header-section',
+        'section.image-section',
+        'section.editorial-text-section',
+        'section.divider-section',
+        'section.video-section',
+      ]
+    >;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
   collectionName: 'countries';
   info: {
@@ -459,33 +498,28 @@ export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiElementsPageElementsPage
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'elements_pages';
+export interface ApiFooterFooter extends Struct.SingleTypeSchema {
+  collectionName: 'footers';
   info: {
-    displayName: 'Page';
-    pluralName: 'elements-pages';
-    singularName: 'elements-page';
+    displayName: 'Footer';
+    pluralName: 'footers';
+    singularName: 'footer';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    cards: Schema.Attribute.Component<'content.card-with-info', true>;
+    copyRightLabel: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    heading: Schema.Attribute.String;
+    footerItems: Schema.Attribute.Component<'content.footer-item', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::elements-page.elements-page'
+      'api::footer.footer'
     > &
       Schema.Attribute.Private;
-    pages: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::elements-page.elements-page'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -515,10 +549,6 @@ export interface ApiGuidelinesPageGuidelinesPage
       'api::guidelines-page.guidelines-page'
     > &
       Schema.Attribute.Private;
-    pages: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::elements-page.elements-page'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -571,7 +601,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    Cards: Schema.Attribute.Component<'content.card', true>;
+    cards: Schema.Attribute.Component<'content.card', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -594,12 +624,12 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiMockMock extends Struct.CollectionTypeSchema {
-  collectionName: 'mocks';
+export interface ApiPagePage extends Struct.CollectionTypeSchema {
+  collectionName: 'pages';
   info: {
-    displayName: 'mock';
-    pluralName: 'mocks';
-    singularName: 'mock';
+    displayName: 'Page';
+    pluralName: 'pages';
+    singularName: 'page';
   };
   options: {
     draftAndPublish: false;
@@ -608,19 +638,66 @@ export interface ApiMockMock extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images'>;
-    imageAlt: Schema.Attribute.String;
-    isFeatured: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::mock.mock'> &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    parent: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    requiresAuth: Schema.Attribute.Boolean;
+    root: Schema.Attribute.Enumeration<
+      ['brand-story', 'basic-elements', 'guidelines']
+    > &
+      Schema.Attribute.Required;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'section.video-section',
+        'section.page-header-section',
+        'section.image-section',
+        'section.editorial-text-section',
+        'section.divider-section',
+      ]
+    >;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String;
+  };
+}
+
+export interface ApiPreRegistrationPreRegistration
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'pre_registrations';
+  info: {
+    displayName: 'Pre Registration';
+    pluralName: 'pre-registrations';
+    singularName: 'pre-registration';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String & Schema.Attribute.Required;
+    expiresAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pre-registration.pre-registration'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    used: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    verified: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -881,8 +958,8 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    alternativeText: Schema.Attribute.String;
-    caption: Schema.Attribute.String;
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -906,7 +983,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     mime: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    previewUrl: Schema.Attribute.String;
+    previewUrl: Schema.Attribute.Text;
     provider: Schema.Attribute.String & Schema.Attribute.Required;
     provider_metadata: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
@@ -915,7 +992,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
     width: Schema.Attribute.Integer;
   };
 }
@@ -1139,12 +1216,14 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::brand-page.brand-page': ApiBrandPageBrandPage;
       'api::country.country': ApiCountryCountry;
-      'api::elements-page.elements-page': ApiElementsPageElementsPage;
+      'api::footer.footer': ApiFooterFooter;
       'api::guidelines-page.guidelines-page': ApiGuidelinesPageGuidelinesPage;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
-      'api::mock.mock': ApiMockMock;
+      'api::page.page': ApiPagePage;
+      'api::pre-registration.pre-registration': ApiPreRegistrationPreRegistration;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

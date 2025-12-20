@@ -11,16 +11,16 @@
     "href": {
       "type": "string"
     },
-    "requiresAuth": {
-      "type": "boolean",
-      "default": false
-    },
     "order": {
       "type": "integer"
     },
     "visible": {
       "type": "boolean",
       "default": true
+    },
+    "requiresAuth": {
+      "type": "boolean",
+      "default": false
     }
   },
   "config": {}

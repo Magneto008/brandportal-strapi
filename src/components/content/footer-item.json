@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_footer_items",
+  "info": {
+    "displayName": "footerItem"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "externalLink": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

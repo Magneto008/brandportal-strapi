@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "root": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "brand-story",
+        "basic-elements",
+        "guidelines"
+      ]
+    },
+    "requiresAuth": {
+      "type": "boolean"
+    },
+    "parent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "section.video-section",
+        "section.page-header-section",
+        "section.image-section",
+        "section.editorial-text-section",
+        "section.divider-section"
+      ]
+    }
+  }
+}

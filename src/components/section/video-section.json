@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_section_video_sections",
+  "info": {
+    "displayName": "video-section"
+  },
+  "options": {},
+  "attributes": {
+    "video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    }
+  },
+  "config": {}
+}
