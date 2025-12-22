@@ -624,6 +624,41 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiLoginPageLoginPage extends Struct.SingleTypeSchema {
+  collectionName: 'login_pages';
+  info: {
+    displayName: 'LoginPage';
+    pluralName: 'login-pages';
+    singularName: 'login-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailLabel: Schema.Attribute.String;
+    employeeLoginText: Schema.Attribute.String;
+    forgotPasswordText: Schema.Attribute.String;
+    header: Schema.Attribute.Component<'content.login-page-header', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::login-page.login-page'
+    > &
+      Schema.Attribute.Private;
+    passwordLabel: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registerText: Schema.Attribute.String;
+    showEmployeeLogin: Schema.Attribute.Boolean;
+    submitLabel: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -663,41 +698,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiPreRegistrationPreRegistration
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'pre_registrations';
-  info: {
-    displayName: 'Pre Registration';
-    pluralName: 'pre-registrations';
-    singularName: 'pre-registration';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.String & Schema.Attribute.Required;
-    expiresAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::pre-registration.pre-registration'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    token: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    used: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    verified: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -1222,8 +1222,8 @@ declare module '@strapi/strapi' {
       'api::guidelines-page.guidelines-page': ApiGuidelinesPageGuidelinesPage;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::login-page.login-page': ApiLoginPageLoginPage;
       'api::page.page': ApiPagePage;
-      'api::pre-registration.pre-registration': ApiPreRegistrationPreRegistration;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

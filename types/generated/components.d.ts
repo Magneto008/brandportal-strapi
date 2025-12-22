@@ -68,6 +68,17 @@ export interface ContentLanguageItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentLoginPageHeader extends Struct.ComponentSchema {
+  collectionName: 'components_content_login_page_headers';
+  info: {
+    displayName: 'login-page-header';
+  };
+  attributes: {
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ContentNavItems extends Struct.ComponentSchema {
   collectionName: 'components_content_nav_items';
   info: {
@@ -146,6 +157,7 @@ declare module '@strapi/strapi' {
       'content.card-with-info': ContentCardWithInfo;
       'content.footer-item': ContentFooterItem;
       'content.language-item': ContentLanguageItem;
+      'content.login-page-header': ContentLoginPageHeader;
       'content.nav-items': ContentNavItems;
       'section.divider-section': SectionDividerSection;
       'section.editorial-text-section': SectionEditorialTextSection;

@@ -24,5 +24,21 @@ module.exports = {
       handler: "auth.logout",
       config: { auth: false },
     },
+    {
+      method: "POST",
+      path: "/auth/register-request",
+      handler: "auth.request",
+      config: {
+        auth: false,
+      },
+    },
+    {
+      method: "GET",
+      path: "/auth/register-verify",
+      handler: "auth.verify",
+      config: {
+        auth: false,
+      },
+    },
   ],
 };

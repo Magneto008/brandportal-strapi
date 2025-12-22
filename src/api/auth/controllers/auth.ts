@@ -1,3 +1,9 @@
+import {
+  createVerificationToken,
+  verifyToken,
+} from "../utils/createVerificationToken";
+import { generateEmailFromTemplate } from "../utils/generateEmailFromTemplate";
+
 export default {
   async register(ctx) {
     const {
@@ -8,11 +14,8 @@ export default {
       company,
       market,
       continentalContactEmail,
+      registerToken,
     } = ctx.request.body ?? {};
-
-    const registerToken =
-      ctx.request.headers["x-register-token"] ??
-      ctx.request.body?.registerToken;
 
     if (!email || !password) {
       return ctx.badRequest("Email and password are required");
@@ -21,30 +24,20 @@ export default {
     if (!registerToken) {
       return ctx.forbidden("Email verification required before registration");
     }
-
     const normalizedEmail = email.toLowerCase();
 
-    // 🔒 VERIFY PRE-REGISTRATION TOKEN (Strapi v5 way)
-    const preRegs = await strapi
-      .documents("api::pre-registration.pre-registration")
-      .findMany({
-        filters: {
-          token: registerToken,
-          email: normalizedEmail,
-          verified: true,
-          used: false,
-          expiresAt: { $gt: new Date() },
-        },
-        limit: 1,
-      });
+    let verifiedEmail: string;
 
-    const preReg = preRegs[0];
-
-    if (!preReg) {
+    try {
+      verifiedEmail = verifyToken(registerToken);
+    } catch (err) {
       return ctx.forbidden("Invalid or expired email verification token");
     }
 
-    // 🔍 EXISTING USER CHECK
+    if (verifiedEmail !== normalizedEmail) {
+      return ctx.forbidden("Email does not match verified email");
+    }
+
     const existing = await strapi.entityService
       .findMany("plugin::users-permissions.user", {
         filters: { email: normalizedEmail },
@@ -56,29 +49,28 @@ export default {
       return ctx.badRequest("Email already exists");
     }
 
-    // ✅ CREATE USER (users-permissions service is correct)
     const usersService = strapi.plugin("users-permissions").service("user");
 
-    const newUser = await usersService.add({
-      username: normalizedEmail.split("@")[0],
-      email: normalizedEmail,
-      password,
-      provider: "local",
-      confirmed: false, // admin approval still required
-      blocked: false,
-      firstName,
-      lastName,
-      company,
-      market,
-      continentalContactEmail,
-      approvedByAdmin: false,
-    });
+    let newUser;
 
-    // 🔐 MARK TOKEN AS USED (Strapi v5 way)
-    await strapi.documents("api::pre-registration.pre-registration").update({
-      documentId: preReg.documentId,
-      data: { used: true },
-    });
+    try {
+      newUser = await usersService.add({
+        username: normalizedEmail.split("@")[0],
+        email: normalizedEmail,
+        password,
+        provider: "local",
+        confirmed: true,
+        blocked: false,
+        firstName,
+        lastName,
+        company,
+        market,
+        continentalContactEmail,
+        approvedByAdmin: false,
+      });
+    } catch (err) {
+      throw err;
+    }
 
     if (newUser?.password) delete newUser.password;
 
@@ -107,17 +99,14 @@ export default {
       .plugin("users-permissions")
       .controller("auth");
 
-    // Let Strapi authenticate
     await authController.callback(ctx, async () => {});
 
     const result = ctx.body;
 
-    // 🚨 Authentication failed
     if (!result?.jwt || !result?.user) {
       return ctx.send(result);
     }
 
-    // 🚨 ADMIN APPROVAL CHECK
     if (!result.user.approvedByAdmin) {
       ctx.cookies.set("token", "", {
         httpOnly: true,
@@ -134,7 +123,6 @@ export default {
       });
     }
 
-    // ✅ Approved → set cookie
     ctx.cookies.set("token", result.jwt, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -143,7 +131,16 @@ export default {
       path: "/",
     });
 
-    return ctx.send(result);
+    return ctx.send({
+      success: true,
+      token: result.jwt,
+      user: {
+        id: result.user.id,
+        email: result.user.email,
+        firstName: result.user.firstName,
+        lastName: result.user.lastName,
+      },
+    });
   },
 
   async user(ctx) {
@@ -163,5 +160,67 @@ export default {
       success: true,
       message: "Logged out successfully",
     });
+  },
+
+  async request(ctx) {
+    const { email } = ctx.request.body ?? {};
+
+    if (!email) {
+      return ctx.badRequest("Email is required");
+    }
+
+    const normalizedEmail = email.toLowerCase();
+
+    const token = createVerificationToken(normalizedEmail);
+
+    const frontendUrl = process.env.FRONTEND_URL;
+    if (!frontendUrl) {
+      return ctx.internalServerError("FRONTEND_URL not configured");
+    }
+
+    const verifyUrl = `${frontendUrl}/pre-register/verify?token=${token}`;
+
+    const emailContent = generateEmailFromTemplate({
+      title: "Verify your email",
+      textBlocks: [
+        "Thank you for starting your registration with the Continental Customer Portal.",
+        "Please verify your email address to continue with the registration process.",
+      ],
+      linkHrefs: [verifyUrl],
+    });
+
+    await strapi.plugin("email").service("email").send({
+      to: normalizedEmail,
+      subject: "Verify your email to continue registration",
+      html: emailContent.html,
+      text: emailContent.text,
+      attachments: emailContent.attachments,
+    });
+
+    return ctx.send({
+      success: true,
+      message: "Verification email sent",
+    });
+  },
+
+  async verify(ctx) {
+    const { token } = ctx.query ?? {};
+
+    if (typeof token !== "string") {
+      return ctx.badRequest("Token is required");
+    }
+
+    try {
+      const email = verifyToken(token);
+
+      return ctx.send({
+        success: true,
+        email,
+        message: "Email verified successfully",
+      });
+    } catch (err) {
+      console.log(err);
+      return ctx.badRequest("Invalid or expired verification token");
+    }
   },
 };

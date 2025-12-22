@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_content_login_page_headers",
+  "info": {
+    "displayName": "login-page-header"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

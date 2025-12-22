@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "login_pages",
+  "info": {
+    "singularName": "login-page",
+    "pluralName": "login-pages",
+    "displayName": "LoginPage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "component": "content.login-page-header",
+      "repeatable": false
+    },
+    "emailLabel": {
+      "type": "string"
+    },
+    "passwordLabel": {
+      "type": "string"
+    },
+    "submitLabel": {
+      "type": "string"
+    },
+    "forgotPasswordText": {
+      "type": "string"
+    },
+    "registerText": {
+      "type": "string"
+    },
+    "showEmployeeLogin": {
+      "type": "boolean"
+    },
+    "employeeLoginText": {
+      "type": "string"
+    }
+  }
+}
