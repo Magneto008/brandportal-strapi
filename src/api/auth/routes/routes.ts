@@ -16,7 +16,7 @@ module.exports = {
       method: "GET",
       path: "/auth/user",
       handler: "auth.user",
-      config: { auth: { scope: [] } },
+      config: { auth: false },
     },
     {
       method: "POST",

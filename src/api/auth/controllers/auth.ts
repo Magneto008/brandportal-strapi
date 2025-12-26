@@ -3,6 +3,7 @@ import {
   verifyToken,
 } from "../utils/createVerificationToken";
 import { generateEmailFromTemplate } from "../utils/generateEmailFromTemplate";
+import jwt from "jsonwebtoken";
 
 export default {
   async register(ctx) {
@@ -104,51 +105,76 @@ export default {
     const result = ctx.body;
 
     if (!result?.jwt || !result?.user) {
-      return ctx.send(result);
+      return;
     }
 
+    ctx.cookies.set("jwt", result.jwt, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    });
+
     if (!result.user.approvedByAdmin) {
-      ctx.cookies.set("token", "", {
+      ctx.cookies.set("jwt", "", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         sameSite: "lax",
         expires: new Date(0),
         path: "/",
       });
 
       ctx.status = 403;
-      return ctx.send({
+      ctx.body = {
         success: false,
         message: "Your account is pending admin approval",
-      });
+      };
+      return;
     }
 
-    ctx.cookies.set("token", result.jwt, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: "/",
-    });
-
-    return ctx.send({
+    ctx.body = {
       success: true,
-      token: result.jwt,
       user: {
         id: result.user.id,
         email: result.user.email,
         firstName: result.user.firstName,
         lastName: result.user.lastName,
       },
-    });
+    };
   },
 
   async user(ctx) {
-    return ctx.send(ctx.state.user ?? null);
+    const token = ctx.cookies.get("jwt");
+    if (!token) return ctx.send(null);
+
+    let decoded;
+    try {
+      decoded = jwt.verify(
+        token,
+        strapi.config.get("plugin::users-permissions.jwtSecret")
+      );
+    } catch {
+      return ctx.send(null);
+    }
+
+    const user = await strapi.entityService.findOne(
+      "plugin::users-permissions.user",
+      decoded.id
+    );
+
+    if (!user) return ctx.send(null);
+
+    return ctx.send({
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    });
   },
 
   async logout(ctx) {
-    ctx.cookies.set("token", "", {
+    ctx.cookies.set("jwt", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
