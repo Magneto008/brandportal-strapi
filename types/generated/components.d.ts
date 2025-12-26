@@ -1,5 +1,47 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AccordionAccordionDivider extends Struct.ComponentSchema {
+  collectionName: 'components_accordion_accordion_dividers';
+  info: {
+    displayName: 'Accordion-Divider';
+  };
+  attributes: {
+    marginBottom: Schema.Attribute.Integer;
+    marginTop: Schema.Attribute.Integer;
+    style: Schema.Attribute.Enumeration<['line', 'space']>;
+  };
+}
+
+export interface AccordionAccordionImage extends Struct.ComponentSchema {
+  collectionName: 'components_accordion_accordion_images';
+  info: {
+    displayName: 'Accordion-Image';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface AccordionAccordionItem extends Struct.ComponentSchema {
+  collectionName: 'components_accordion_accordion_items';
+  info: {
+    displayName: 'Accordion-Item';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface AccordionAccordionText extends Struct.ComponentSchema {
+  collectionName: 'components_accordion_accordion_texts';
+  info: {
+    displayName: 'Accordion-Text';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+  };
+}
+
 export interface ContentAuthActions extends Struct.ComponentSchema {
   collectionName: 'components_content_auth_actions';
   info: {
@@ -93,6 +135,16 @@ export interface ContentNavItems extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionAccordionHeader extends Struct.ComponentSchema {
+  collectionName: 'components_section_accordion_headers';
+  info: {
+    displayName: 'accordion-header';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionDividerSection extends Struct.ComponentSchema {
   collectionName: 'components_section_divider_sections';
   info: {
@@ -152,6 +204,10 @@ export interface SectionVideoSection extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'accordion.accordion-divider': AccordionAccordionDivider;
+      'accordion.accordion-image': AccordionAccordionImage;
+      'accordion.accordion-item': AccordionAccordionItem;
+      'accordion.accordion-text': AccordionAccordionText;
       'content.auth-actions': ContentAuthActions;
       'content.card': ContentCard;
       'content.card-with-info': ContentCardWithInfo;
@@ -159,6 +215,7 @@ declare module '@strapi/strapi' {
       'content.language-item': ContentLanguageItem;
       'content.login-page-header': ContentLoginPageHeader;
       'content.nav-items': ContentNavItems;
+      'section.accordion-header': SectionAccordionHeader;
       'section.divider-section': SectionDividerSection;
       'section.editorial-text-section': SectionEditorialTextSection;
       'section.image-section': SectionImageSection;

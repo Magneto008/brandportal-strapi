@@ -30,7 +30,8 @@
       ]
     },
     "requiresAuth": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "parent": {
       "type": "relation",
@@ -47,7 +48,11 @@
         "section.page-header-section",
         "section.image-section",
         "section.editorial-text-section",
-        "section.divider-section"
+        "section.divider-section",
+        "section.accordion-header",
+        "accordion.accordion-text",
+        "accordion.accordion-image",
+        "accordion.accordion-divider"
       ]
     }
   }

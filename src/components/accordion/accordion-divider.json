@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_accordion_accordion_dividers",
+  "info": {
+    "displayName": "Accordion-Divider"
+  },
+  "options": {},
+  "attributes": {
+    "style": {
+      "type": "enumeration",
+      "enum": [
+        "line",
+        "space"
+      ]
+    },
+    "marginTop": {
+      "type": "integer"
+    },
+    "marginBottom": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_accordion_accordion_images",
+  "info": {
+    "displayName": "Accordion-Image"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

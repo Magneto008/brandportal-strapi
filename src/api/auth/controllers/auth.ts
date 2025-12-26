@@ -1,4 +1,8 @@
 import {
+  createPasswordResetToken,
+  verifyPasswordResetToken,
+} from "../utils/createPasswordResetToken";
+import {
   createVerificationToken,
   verifyToken,
 } from "../utils/createVerificationToken";
@@ -209,7 +213,7 @@ export default {
     const emailContent = generateEmailFromTemplate({
       title: "Verify your email",
       textBlocks: [
-        "Thank you for starting your registration with the Continental Customer Portal.",
+        "Thank you for starting your registration with the Continental Brand Portal.",
         "Please verify your email address to continue with the registration process.",
       ],
       linkHrefs: [verifyUrl],
@@ -247,6 +251,112 @@ export default {
     } catch (err) {
       console.log(err);
       return ctx.badRequest("Invalid or expired verification token");
+    }
+  },
+
+  async forgotPassword(ctx) {
+    const { email } = ctx.request.body ?? {};
+
+    if (!email) {
+      return ctx.badRequest("Email is required");
+    }
+
+    const normalizedEmail = email.toLowerCase();
+
+    const user = await strapi.entityService
+      .findMany("plugin::users-permissions.user", {
+        filters: { email: normalizedEmail },
+        limit: 1,
+      })
+      .then((r) => r[0]);
+
+    if (!user) {
+      return ctx.send({
+        success: true,
+        message: "If the email exists, a reset link was sent.",
+      });
+    }
+
+    const passwordChangedAtDate = user.passwordChangedAt
+      ? new Date(user.passwordChangedAt)
+      : null;
+
+    const token = createPasswordResetToken(
+      normalizedEmail,
+      passwordChangedAtDate
+    );
+
+    const frontendUrl = process.env.FRONTEND_URL;
+    if (!frontendUrl) {
+      return ctx.internalServerError("FRONTEND_URL not configured");
+    }
+
+    const resetUrl = `${frontendUrl}/reset-password?token=${token}`;
+
+    const emailContent = generateEmailFromTemplate({
+      title: "Reset your password",
+      textBlocks: [
+        "You requested a password reset for your Continental Brand Portal account.",
+        "Click the link below to set a new password. This link expires in 1 hour.",
+      ],
+      linkHrefs: [resetUrl],
+    });
+
+    await strapi.plugin("email").service("email").send({
+      to: normalizedEmail,
+      subject: "Reset your password",
+      html: emailContent.html,
+      text: emailContent.text,
+      attachments: emailContent.attachments,
+    });
+
+    return ctx.send({
+      success: true,
+      message: "If the email exists, a reset link was sent.",
+    });
+  },
+
+  async resetPassword(ctx) {
+    const { token, password } = ctx.request.body ?? {};
+
+    if (!token || !password) {
+      return ctx.badRequest("Token and new password are required");
+    }
+
+    try {
+      const decoded = jwt.decode(token) as { email?: string };
+      if (!decoded?.email) {
+        return ctx.badRequest("Invalid or expired reset token");
+      }
+
+      const user = await strapi.entityService
+        .findMany("plugin::users-permissions.user", {
+          filters: { email: decoded.email },
+          limit: 1,
+        })
+        .then((r) => r[0]);
+
+      if (!user) {
+        return ctx.badRequest("User not found");
+      }
+
+      const passwordChangedAtDate = user.passwordChangedAt
+        ? new Date(user.passwordChangedAt)
+        : null;
+
+      verifyPasswordResetToken(token, passwordChangedAtDate);
+
+      await strapi.plugin("users-permissions").service("user").edit(user.id, {
+        password,
+        passwordChangedAt: new Date(),
+      });
+
+      return ctx.send({
+        success: true,
+        message: "Password reset successfully",
+      });
+    } catch {
+      return ctx.badRequest("Invalid or expired reset token");
     }
   },
 };

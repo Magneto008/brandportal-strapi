@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_accordion_accordion_texts",
+  "info": {
+    "displayName": "Accordion-Text"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

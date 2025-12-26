@@ -1,4 +1,5 @@
 {
+  "kind": "collectionType",
   "collectionName": "up_users",
   "info": {
     "singularName": "user",
@@ -7,33 +8,29 @@
     "description": "Extended user model for Brand Portal"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "username": {
       "type": "string",
       "minLength": 3,
-      "unique": true,
-      "required": true
+      "required": true,
+      "unique": true
     },
     "email": {
       "type": "email",
+      "required": true,
       "minLength": 6,
-      "unique": true,
-      "required": true
+      "unique": true
     },
     "provider": {
       "type": "string"
     },
     "password": {
       "type": "password",
-      "required": true,
-      "private": true
-    },
-    "resetPasswordToken": {
-      "type": "string",
-      "private": true
+      "private": true,
+      "required": true
     },
     "confirmationToken": {
       "type": "string",
@@ -52,7 +49,6 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.role"
     },
-
     "firstName": {
       "type": "string"
     },
@@ -68,10 +64,12 @@
     "continentalContactEmail": {
       "type": "email"
     },
-
     "approvedByAdmin": {
       "type": "boolean",
       "default": false
+    },
+    "passwordChangedAt": {
+      "type": "datetime"
     }
   }
 }

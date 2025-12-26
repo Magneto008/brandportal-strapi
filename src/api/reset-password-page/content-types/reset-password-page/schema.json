@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "reset_password_pages",
+  "info": {
+    "singularName": "reset-password-page",
+    "pluralName": "reset-password-pages",
+    "displayName": "ResetPasswordPage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "component": "content.login-page-header",
+      "repeatable": true
+    },
+    "formTitle": {
+      "type": "string"
+    },
+    "formDescription": {
+      "type": "string"
+    },
+    "passwordLabel": {
+      "type": "string"
+    },
+    "confirmPasswordLabel": {
+      "type": "string"
+    },
+    "submitLabel": {
+      "type": "string"
+    },
+    "successMessage": {
+      "type": "string"
+    }
+  }
+}

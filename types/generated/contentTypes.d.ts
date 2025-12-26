@@ -527,6 +527,41 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiForgotPasswordPageForgotPasswordPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'forgot_password_pages';
+  info: {
+    displayName: 'ForgotPasswordPage';
+    pluralName: 'forgot-password-pages';
+    singularName: 'forgot-password-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailLabel: Schema.Attribute.String;
+    emailPlaceholder: Schema.Attribute.String;
+    formDescription: Schema.Attribute.String;
+    formTitle: Schema.Attribute.String;
+    header: Schema.Attribute.Component<'content.login-page-header', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::forgot-password-page.forgot-password-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    submitLabel: Schema.Attribute.String;
+    successMessage: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGuidelinesPageGuidelinesPage
   extends Struct.SingleTypeSchema {
   collectionName: 'guidelines_pages';
@@ -679,7 +714,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     order: Schema.Attribute.Integer;
     parent: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     publishedAt: Schema.Attribute.DateTime;
-    requiresAuth: Schema.Attribute.Boolean;
+    requiresAuth: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     root: Schema.Attribute.Enumeration<
       ['brand-story', 'basic-elements', 'guidelines']
     > &
@@ -691,10 +726,49 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'section.image-section',
         'section.editorial-text-section',
         'section.divider-section',
+        'section.accordion-header',
+        'accordion.accordion-text',
+        'accordion.accordion-image',
+        'accordion.accordion-divider',
       ]
     >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResetPasswordPageResetPasswordPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'reset_password_pages';
+  info: {
+    displayName: 'ResetPasswordPage';
+    pluralName: 'reset-password-pages';
+    singularName: 'reset-password-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    confirmPasswordLabel: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    formDescription: Schema.Attribute.String;
+    formTitle: Schema.Attribute.String;
+    header: Schema.Attribute.Component<'content.login-page-header', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reset-password-page.reset-password-page'
+    > &
+      Schema.Attribute.Private;
+    passwordLabel: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    submitLabel: Schema.Attribute.String;
+    successMessage: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1155,7 +1229,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     approvedByAdmin: Schema.Attribute.Boolean &
@@ -1186,9 +1259,9 @@ export interface PluginUsersPermissionsUser
     password: Schema.Attribute.Password &
       Schema.Attribute.Required &
       Schema.Attribute.Private;
+    passwordChangedAt: Schema.Attribute.DateTime;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
@@ -1219,11 +1292,13 @@ declare module '@strapi/strapi' {
       'api::brand-page.brand-page': ApiBrandPageBrandPage;
       'api::country.country': ApiCountryCountry;
       'api::footer.footer': ApiFooterFooter;
+      'api::forgot-password-page.forgot-password-page': ApiForgotPasswordPageForgotPasswordPage;
       'api::guidelines-page.guidelines-page': ApiGuidelinesPageGuidelinesPage;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::login-page.login-page': ApiLoginPageLoginPage;
       'api::page.page': ApiPagePage;
+      'api::reset-password-page.reset-password-page': ApiResetPasswordPageResetPasswordPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

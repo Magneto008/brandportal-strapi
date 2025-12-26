@@ -31,7 +31,7 @@ export function generateEmailFromTemplate({
             font-size: 14px;
           "
         >
-          Continental Customer Portal
+          Continental Brand Portal
         </div>
  
         <div

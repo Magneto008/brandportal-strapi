@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_section_accordion_headers",
+  "info": {
+    "displayName": "accordion-header"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}
