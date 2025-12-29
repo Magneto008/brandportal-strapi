@@ -726,10 +726,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'section.image-section',
         'section.editorial-text-section',
         'section.divider-section',
-        'section.accordion-header',
-        'accordion.accordion-text',
-        'accordion.accordion-image',
-        'accordion.accordion-divider',
+        'section.accordion-start',
+        'section.accordion-end',
+        'section.anchor-section',
       ]
     >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;

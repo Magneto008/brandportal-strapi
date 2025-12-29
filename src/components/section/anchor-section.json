@@ -1,11 +1,11 @@
 {
-  "collectionName": "components_accordion_accordion_items",
+  "collectionName": "components_section_anchor_sections",
   "info": {
-    "displayName": "Accordion-Item"
+    "displayName": "anchor-section"
   },
   "options": {},
   "attributes": {
-    "title": {
+    "label": {
       "type": "string",
       "required": true
     }
