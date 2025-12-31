@@ -121,6 +121,16 @@ export interface SectionAnchorSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionCardItemsSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_card_items_sections';
+  info: {
+    displayName: 'card-items-section';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'content.card-with-info', true>;
+  };
+}
+
 export interface SectionDividerSection extends Struct.ComponentSchema {
   collectionName: 'components_section_divider_sections';
   info: {
@@ -152,7 +162,9 @@ export interface SectionImageSection extends Struct.ComponentSchema {
     icon: 'landscape';
   };
   attributes: {
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images', true>;
+    layout: Schema.Attribute.Enumeration<['grid', 'inline']> &
+      Schema.Attribute.DefaultTo<'grid'>;
   };
 }
 
@@ -164,6 +176,18 @@ export interface SectionPageHeaderSection extends Struct.ComponentSchema {
   };
   attributes: {
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionSmallHeadingSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_small_heading_sections';
+  info: {
+    displayName: 'small-heading-section';
+  };
+  attributes: {
+    level: Schema.Attribute.Enumeration<['h2', 'h3', 'h4']> &
+      Schema.Attribute.DefaultTo<'h3'>;
+    text: Schema.Attribute.String;
   };
 }
 
@@ -190,10 +214,12 @@ declare module '@strapi/strapi' {
       'section.accordion-end': SectionAccordionEnd;
       'section.accordion-start': SectionAccordionStart;
       'section.anchor-section': SectionAnchorSection;
+      'section.card-items-section': SectionCardItemsSection;
       'section.divider-section': SectionDividerSection;
       'section.editorial-text-section': SectionEditorialTextSection;
       'section.image-section': SectionImageSection;
       'section.page-header-section': SectionPageHeaderSection;
+      'section.small-heading-section': SectionSmallHeadingSection;
       'section.video-section': SectionVideoSection;
     }
   }

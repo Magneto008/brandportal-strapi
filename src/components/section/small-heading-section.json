@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_section_small_heading_sections",
+  "info": {
+    "displayName": "small-heading-section"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "level": {
+      "type": "enumeration",
+      "default": "h3",
+      "enum": [
+        "h2",
+        "h3",
+        "h4"
+      ]
+    }
+  },
+  "config": {}
+}

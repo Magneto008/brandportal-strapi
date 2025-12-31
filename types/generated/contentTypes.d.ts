@@ -601,23 +601,54 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
   options: {
     draftAndPublish: false;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    authActions: Schema.Attribute.Component<'content.auth-actions', true>;
-    claimImage: Schema.Attribute.Media<'images'>;
+    authActions: Schema.Attribute.Component<'content.auth-actions', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    claimImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    languageItems: Schema.Attribute.Component<'content.language-item', true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::header.header'
-    > &
-      Schema.Attribute.Private;
-    logoImage: Schema.Attribute.Media<'images'>;
-    navItems: Schema.Attribute.Component<'content.nav-items', true>;
+    languageItems: Schema.Attribute.Component<'content.language-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::header.header'>;
+    logoImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    navItems: Schema.Attribute.Component<'content.nav-items', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     searchPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
       Schema.Attribute.DefaultTo<'Search'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -729,6 +760,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'section.accordion-start',
         'section.accordion-end',
         'section.anchor-section',
+        'section.small-heading-section',
+        'section.card-items-section',
       ]
     >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;

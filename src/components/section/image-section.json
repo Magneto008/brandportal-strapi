@@ -8,9 +8,17 @@
   "attributes": {
     "image": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images"
+      ]
+    },
+    "layout": {
+      "type": "enumeration",
+      "default": "grid",
+      "enum": [
+        "grid",
+        "inline"
       ]
     }
   },

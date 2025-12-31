@@ -51,7 +51,9 @@
         "section.divider-section",
         "section.accordion-start",
         "section.accordion-end",
-        "section.anchor-section"
+        "section.anchor-section",
+        "section.small-heading-section",
+        "section.card-items-section"
       ]
     }
   }

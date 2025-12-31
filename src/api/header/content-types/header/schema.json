@@ -9,10 +9,19 @@
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "logoImage": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images"
@@ -20,6 +29,11 @@
     },
     "claimImage": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images"
@@ -27,20 +41,40 @@
     },
     "searchPlaceholder": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "default": "Search"
     },
     "navItems": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "component": "content.nav-items",
       "repeatable": true
     },
     "languageItems": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "component": "content.language-item",
       "repeatable": true
     },
     "authActions": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "component": "content.auth-actions",
       "repeatable": true
     }
