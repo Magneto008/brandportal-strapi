@@ -191,6 +191,16 @@ export interface SectionSmallHeadingSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionTextSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_text_sections';
+  info: {
+    displayName: 'text-section';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionVideoSection extends Struct.ComponentSchema {
   collectionName: 'components_section_video_sections';
   info: {
@@ -220,6 +230,7 @@ declare module '@strapi/strapi' {
       'section.image-section': SectionImageSection;
       'section.page-header-section': SectionPageHeaderSection;
       'section.small-heading-section': SectionSmallHeadingSection;
+      'section.text-section': SectionTextSection;
       'section.video-section': SectionVideoSection;
     }
   }

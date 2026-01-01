@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_section_text_sections",
+  "info": {
+    "displayName": "text-section"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  },
+  "config": {}
+}
