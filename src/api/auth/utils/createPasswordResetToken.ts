@@ -5,9 +5,7 @@ const RESET_SECRET = process.env.JWT_SECRET;
 if (!RESET_SECRET) {
   throw new Error("PASSWORD_RESET_SECRET is not defined");
 }
-
 const EXPIRES_IN = "1h";
-
 export function createPasswordResetToken(
   email: string,
   passwordChangedAt?: Date | null
