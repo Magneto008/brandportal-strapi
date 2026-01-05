@@ -21,6 +21,14 @@
     "ctaLabel": {
       "type": "string"
     },
+    "ctaVariant": {
+      "type": "enumeration",
+      "default": "link",
+      "enum": [
+        "link",
+        "download"
+      ]
+    },
     "infoTitle": {
       "type": "string",
       "default": "Additional Information"

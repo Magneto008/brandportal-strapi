@@ -36,12 +36,27 @@ export interface ContentCardWithInfo extends Struct.ComponentSchema {
   };
   attributes: {
     ctaLabel: Schema.Attribute.String;
+    ctaVariant: Schema.Attribute.Enumeration<['link', 'download']> &
+      Schema.Attribute.DefaultTo<'link'>;
     image: Schema.Attribute.Media<'images'>;
     infoItems: Schema.Attribute.JSON;
     infoTitle: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Additional Information'>;
     title: Schema.Attribute.String;
     url: Schema.Attribute.String;
+  };
+}
+
+export interface ContentDownloadItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_download_items';
+  info: {
+    displayName: 'download-item';
+  };
+  attributes: {
+    file: Schema.Attribute.Media<'files'>;
+    fileTypes: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    versions: Schema.Attribute.String;
   };
 }
 
@@ -68,6 +83,16 @@ export interface ContentLanguageItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentList extends Struct.ComponentSchema {
+  collectionName: 'components_content_lists';
+  info: {
+    displayName: 'list';
+  };
+  attributes: {
+    listItem: Schema.Attribute.String;
+  };
+}
+
 export interface ContentLoginPageHeader extends Struct.ComponentSchema {
   collectionName: 'components_content_login_page_headers';
   info: {
@@ -90,6 +115,21 @@ export interface ContentNavItems extends Struct.ComponentSchema {
     order: Schema.Attribute.Integer;
     requiresAuth: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     visible: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+  };
+}
+
+export interface ContentStackedCard extends Struct.ComponentSchema {
+  collectionName: 'components_content_stacked_cards';
+  info: {
+    displayName: 'stacked-card';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    ctaButton: Schema.Attribute.Component<'shared.icon-link', false>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    secondaryContent: Schema.Attribute.RichText;
+    secondaryTitle: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -131,6 +171,19 @@ export interface SectionCardItemsSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionColumnTable extends Struct.ComponentSchema {
+  collectionName: 'components_section_column_tables';
+  info: {
+    displayName: 'Column Table';
+  };
+  attributes: {
+    columns: Schema.Attribute.Enumeration<['two', 'stacked']>;
+    leftColumnLabel: Schema.Attribute.String;
+    rightColumnLabel: Schema.Attribute.String;
+    rows: Schema.Attribute.Component<'shared.rows', true>;
+  };
+}
+
 export interface SectionDividerSection extends Struct.ComponentSchema {
   collectionName: 'components_section_divider_sections';
   info: {
@@ -141,6 +194,17 @@ export interface SectionDividerSection extends Struct.ComponentSchema {
     marginTop: Schema.Attribute.Integer;
     style: Schema.Attribute.Enumeration<['line', 'space']> &
       Schema.Attribute.DefaultTo<'line'>;
+  };
+}
+
+export interface SectionDownloadsSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_downloads_sections';
+  info: {
+    displayName: 'downloads-section';
+  };
+  attributes: {
+    downloads: Schema.Attribute.Component<'content.download-item', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -155,6 +219,17 @@ export interface SectionEditorialTextSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionIconLinkSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_icon_link_sections';
+  info: {
+    displayName: 'Icon Link Section';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'shared.icon-link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionImageSection extends Struct.ComponentSchema {
   collectionName: 'components_section_image_sections';
   info: {
@@ -163,8 +238,19 @@ export interface SectionImageSection extends Struct.ComponentSchema {
   };
   attributes: {
     image: Schema.Attribute.Media<'images', true>;
-    layout: Schema.Attribute.Enumeration<['grid', 'inline']> &
+    layout: Schema.Attribute.Enumeration<['grid', 'inline', 'small-grid']> &
       Schema.Attribute.DefaultTo<'grid'>;
+  };
+}
+
+export interface SectionListSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_list_sections';
+  info: {
+    displayName: 'list-section';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'content.list', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -191,6 +277,16 @@ export interface SectionSmallHeadingSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionStackedCardSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_stacked_card_sections';
+  info: {
+    displayName: 'stacked-card-section';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'content.stacked-card', true>;
+  };
+}
+
 export interface SectionTextSection extends Struct.ComponentSchema {
   collectionName: 'components_section_text_sections';
   info: {
@@ -198,6 +294,7 @@ export interface SectionTextSection extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -211,27 +308,62 @@ export interface SectionVideoSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedIconLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_icon_links';
+  info: {
+    displayName: 'icon-link';
+  };
+  attributes: {
+    icon: Schema.Attribute.Enumeration<
+      ['download', 'chevron-right', 'external', 'arrow-right']
+    >;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedRows extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rows';
+  info: {
+    displayName: 'rows';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    label: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.auth-actions': ContentAuthActions;
       'content.card': ContentCard;
       'content.card-with-info': ContentCardWithInfo;
+      'content.download-item': ContentDownloadItem;
       'content.footer-item': ContentFooterItem;
       'content.language-item': ContentLanguageItem;
+      'content.list': ContentList;
       'content.login-page-header': ContentLoginPageHeader;
       'content.nav-items': ContentNavItems;
+      'content.stacked-card': ContentStackedCard;
       'section.accordion-end': SectionAccordionEnd;
       'section.accordion-start': SectionAccordionStart;
       'section.anchor-section': SectionAnchorSection;
       'section.card-items-section': SectionCardItemsSection;
+      'section.column-table': SectionColumnTable;
       'section.divider-section': SectionDividerSection;
+      'section.downloads-section': SectionDownloadsSection;
       'section.editorial-text-section': SectionEditorialTextSection;
+      'section.icon-link-section': SectionIconLinkSection;
       'section.image-section': SectionImageSection;
+      'section.list-section': SectionListSection;
       'section.page-header-section': SectionPageHeaderSection;
       'section.small-heading-section': SectionSmallHeadingSection;
+      'section.stacked-card-section': SectionStackedCardSection;
       'section.text-section': SectionTextSection;
       'section.video-section': SectionVideoSection;
+      'shared.icon-link': SharedIconLink;
+      'shared.rows': SharedRows;
     }
   }
 }

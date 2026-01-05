@@ -9,10 +9,19 @@
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "title": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "required": true
     },
     "slug": {
@@ -22,6 +31,11 @@
     },
     "root": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "required": true,
       "enum": [
         "brand-story",
@@ -31,6 +45,11 @@
     },
     "requiresAuth": {
       "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "default": false
     },
     "parent": {
@@ -39,10 +58,20 @@
       "target": "api::page.page"
     },
     "order": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "sections": {
       "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "components": [
         "section.video-section",
         "section.page-header-section",
@@ -54,7 +83,12 @@
         "section.anchor-section",
         "section.small-heading-section",
         "section.card-items-section",
-        "section.text-section"
+        "section.text-section",
+        "section.stacked-card-section",
+        "section.list-section",
+        "section.downloads-section",
+        "section.icon-link-section",
+        "section.column-table"
       ]
     }
   }

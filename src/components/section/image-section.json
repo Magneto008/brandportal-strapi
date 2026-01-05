@@ -18,7 +18,8 @@
       "default": "grid",
       "enum": [
         "grid",
-        "inline"
+        "inline",
+        "small-grid"
       ]
     }
   },

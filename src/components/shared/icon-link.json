@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_icon_links",
+  "info": {
+    "displayName": "icon-link"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "download",
+        "chevron-right",
+        "external",
+        "arrow-right"
+      ]
+    }
+  },
+  "config": {}
+}

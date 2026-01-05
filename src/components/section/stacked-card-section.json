@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_section_stacked_card_sections",
+  "info": {
+    "displayName": "stacked-card-section"
+  },
+  "options": {},
+  "attributes": {
+    "cards": {
+      "type": "component",
+      "component": "content.stacked-card",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

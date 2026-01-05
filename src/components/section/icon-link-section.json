@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_section_icon_link_sections",
+  "info": {
+    "displayName": "Icon Link Section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "component": "shared.icon-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

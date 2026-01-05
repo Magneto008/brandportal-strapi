@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_rows",
+  "info": {
+    "displayName": "rows"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_content_download_items",
+  "info": {
+    "displayName": "download-item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "fileTypes": {
+      "type": "string"
+    },
+    "versions": {
+      "type": "string"
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

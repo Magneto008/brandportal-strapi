@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_section_downloads_sections",
+  "info": {
+    "displayName": "downloads-section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "downloads": {
+      "type": "component",
+      "component": "content.download-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

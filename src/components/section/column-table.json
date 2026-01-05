@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_section_column_tables",
+  "info": {
+    "displayName": "Column Table"
+  },
+  "options": {},
+  "attributes": {
+    "columns": {
+      "type": "enumeration",
+      "enum": [
+        "two",
+        "stacked"
+      ]
+    },
+    "leftColumnLabel": {
+      "type": "string"
+    },
+    "rightColumnLabel": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "component",
+      "component": "shared.rows",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

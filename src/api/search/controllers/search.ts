@@ -1,6 +1,6 @@
 const extractSnippet = (text: string, query: string, radius = 60) => {
   const lower = text.toLowerCase();
-  const idx = lower.indexOf(query.toLowerCase());
+  const idx = lower.indexOf(query);
 
   if (idx === -1) return text.slice(0, 120) + "...";
 
@@ -10,6 +10,37 @@ const extractSnippet = (text: string, query: string, radius = 60) => {
   const snippet = text.slice(start, end).trim();
 
   return (start > 0 ? "…" : "") + snippet + (end < text.length ? "…" : "");
+};
+
+const stripMarkdown = (text: string) =>
+  text
+    .replace(/!\[.*?\]\(.*?\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_~`>#-]/g, "");
+
+const getSectionText = (section: any): string | null => {
+  switch (section.__component) {
+    case "section.page-header-section":
+      return section.title;
+
+    case "section.small-heading-section":
+      return section.text;
+
+    case "section.editorial-text-section":
+      return section.content;
+
+    case "section.text-section":
+      return section.content;
+
+    case "section.anchor-section":
+      return section.label;
+
+    case "section.accordion-start":
+      return section.title;
+
+    default:
+      return null;
+  }
 };
 
 export default {
@@ -28,39 +59,25 @@ export default {
       let matched = false;
       let excerpt = "";
 
-      // Page title / slug
-      if (
-        page.title?.toLowerCase().includes(q) ||
-        page.slug?.toLowerCase().includes(q)
-      ) {
+      if (page.title?.toLowerCase().includes(q)) {
         matched = true;
         excerpt = page.title;
+      } else if (page.slug?.toLowerCase().includes(q)) {
+        matched = true;
+        excerpt = page.slug.replace(/-/g, " ");
       }
 
-      // Sections
       if (!matched && Array.isArray(page.sections)) {
         for (const section of page.sections) {
-          // Header section
-          if (
-            section.__component === "section.page-header-section" &&
-            typeof section.title === "string" &&
-            section.title.toLowerCase().includes(q)
-          ) {
-            matched = true;
-            excerpt = section.title;
-            break;
-          }
+          const text = getSectionText(section);
+          if (!text) continue;
 
-          // Editorial text section
-          if (
-            section.__component === "section.editorial-text-section" &&
-            typeof section.content === "string" &&
-            section.content.toLowerCase().includes(q)
-          ) {
-            matched = true;
-            excerpt = extractSnippet(section.content, q);
-            break;
-          }
+          const clean = stripMarkdown(text);
+          if (!clean.toLowerCase().includes(q)) continue;
+
+          matched = true;
+          excerpt = extractSnippet(clean, q);
+          break;
         }
       }
 
@@ -69,7 +86,7 @@ export default {
       }
     }
 
-    const buildPath = (page) => {
+    const buildPath = (page: any) => {
       const segments: string[] = [];
 
       if (page.root) segments.push(page.root);
