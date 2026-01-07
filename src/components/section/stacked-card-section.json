@@ -5,6 +5,14 @@
   },
   "options": {},
   "attributes": {
+    "layout": {
+      "type": "enumeration",
+      "default": "two",
+      "enum": [
+        "two",
+        "three"
+      ]
+    },
     "cards": {
       "type": "component",
       "component": "content.stacked-card",

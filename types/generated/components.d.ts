@@ -124,12 +124,12 @@ export interface ContentStackedCard extends Struct.ComponentSchema {
     displayName: 'stacked-card';
   };
   attributes: {
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    content: Schema.Attribute.RichText;
     ctaButton: Schema.Attribute.Component<'shared.icon-link', false>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     secondaryContent: Schema.Attribute.RichText;
     secondaryTitle: Schema.Attribute.String;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -230,6 +230,19 @@ export interface SectionIconLinkSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionImageInfo extends Struct.ComponentSchema {
+  collectionName: 'components_section_image_infos';
+  info: {
+    displayName: 'Image Info';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    imagePosition: Schema.Attribute.Enumeration<['left', 'right']>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionImageSection extends Struct.ComponentSchema {
   collectionName: 'components_section_image_sections';
   info: {
@@ -240,6 +253,16 @@ export interface SectionImageSection extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images', true>;
     layout: Schema.Attribute.Enumeration<['grid', 'inline', 'small-grid']> &
       Schema.Attribute.DefaultTo<'grid'>;
+  };
+}
+
+export interface SectionImageSlider extends Struct.ComponentSchema {
+  collectionName: 'components_section_image_sliders';
+  info: {
+    displayName: 'Image slider';
+  };
+  attributes: {
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
   };
 }
 
@@ -284,6 +307,8 @@ export interface SectionStackedCardSection extends Struct.ComponentSchema {
   };
   attributes: {
     cards: Schema.Attribute.Component<'content.stacked-card', true>;
+    layout: Schema.Attribute.Enumeration<['two', 'three']> &
+      Schema.Attribute.DefaultTo<'two'>;
   };
 }
 
@@ -355,7 +380,9 @@ declare module '@strapi/strapi' {
       'section.downloads-section': SectionDownloadsSection;
       'section.editorial-text-section': SectionEditorialTextSection;
       'section.icon-link-section': SectionIconLinkSection;
+      'section.image-info': SectionImageInfo;
       'section.image-section': SectionImageSection;
+      'section.image-slider': SectionImageSlider;
       'section.list-section': SectionListSection;
       'section.page-header-section': SectionPageHeaderSection;
       'section.small-heading-section': SectionSmallHeadingSection;

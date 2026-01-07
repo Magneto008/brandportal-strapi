@@ -88,7 +88,9 @@
         "section.list-section",
         "section.downloads-section",
         "section.icon-link-section",
-        "section.column-table"
+        "section.column-table",
+        "section.image-slider",
+        "section.image-info"
       ]
     }
   }

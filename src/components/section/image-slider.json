@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_section_image_sliders",
+  "info": {
+    "displayName": "Image slider"
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}
