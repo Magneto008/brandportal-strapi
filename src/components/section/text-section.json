@@ -11,6 +11,14 @@
     "content": {
       "type": "richtext",
       "required": true
+    },
+    "textSize": {
+      "type": "enumeration",
+      "default": "large",
+      "enum": [
+        "small",
+        "large"
+      ]
     }
   },
   "config": {}

@@ -125,7 +125,7 @@ export interface ContentStackedCard extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText;
-    ctaButton: Schema.Attribute.Component<'shared.icon-link', false>;
+    ctaButton: Schema.Attribute.Component<'shared.icon-link', true>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     secondaryContent: Schema.Attribute.RichText;
     secondaryTitle: Schema.Attribute.String;
@@ -236,6 +236,8 @@ export interface SectionIconLinkSection extends Struct.ComponentSchema {
     displayName: 'Icon Link Section';
   };
   attributes: {
+    layout: Schema.Attribute.Enumeration<['single', 'grid']> &
+      Schema.Attribute.DefaultTo<'single'>;
     links: Schema.Attribute.Component<'shared.icon-link', true>;
     title: Schema.Attribute.String;
   };
@@ -330,6 +332,8 @@ export interface SectionTextSection extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    textSize: Schema.Attribute.Enumeration<['small', 'large']> &
+      Schema.Attribute.DefaultTo<'large'>;
     title: Schema.Attribute.String;
   };
 }

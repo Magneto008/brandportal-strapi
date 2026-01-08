@@ -12,6 +12,14 @@
       "type": "component",
       "component": "shared.icon-link",
       "repeatable": true
+    },
+    "layout": {
+      "type": "enumeration",
+      "default": "single",
+      "enum": [
+        "single",
+        "grid"
+      ]
     }
   },
   "config": {}

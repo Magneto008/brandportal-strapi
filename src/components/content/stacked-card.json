@@ -30,7 +30,7 @@
     "ctaButton": {
       "type": "component",
       "component": "shared.icon-link",
-      "repeatable": false
+      "repeatable": true
     }
   },
   "config": {}
