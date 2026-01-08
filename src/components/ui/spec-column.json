@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_ui_spec_columns",
+  "info": {
+    "displayName": "spec-column"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "component",
+      "component": "ui.spec-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

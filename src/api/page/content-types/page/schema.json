@@ -90,7 +90,8 @@
         "section.icon-link-section",
         "section.column-table",
         "section.image-slider",
-        "section.image-info"
+        "section.image-info",
+        "section.column-with-list"
       ]
     }
   }

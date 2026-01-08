@@ -184,6 +184,17 @@ export interface SectionColumnTable extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionColumnWithList extends Struct.ComponentSchema {
+  collectionName: 'components_section_column_with_lists';
+  info: {
+    displayName: 'Column With List';
+  };
+  attributes: {
+    columns: Schema.Attribute.Component<'ui.spec-column', true>;
+    columnsPerRow: Schema.Attribute.Enumeration<['three', 'four']>;
+  };
+}
+
 export interface SectionDividerSection extends Struct.ComponentSchema {
   collectionName: 'components_section_divider_sections';
   info: {
@@ -358,6 +369,38 @@ export interface SharedRows extends Struct.ComponentSchema {
   };
 }
 
+export interface UiSpecColumn extends Struct.ComponentSchema {
+  collectionName: 'components_ui_spec_columns';
+  info: {
+    displayName: 'spec-column';
+  };
+  attributes: {
+    groups: Schema.Attribute.Component<'ui.spec-group', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface UiSpecGroup extends Struct.ComponentSchema {
+  collectionName: 'components_ui_spec_groups';
+  info: {
+    displayName: 'spec-group';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'ui.spec-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface UiSpecItem extends Struct.ComponentSchema {
+  collectionName: 'components_ui_spec_items';
+  info: {
+    displayName: 'spec-item';
+  };
+  attributes: {
+    text: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -376,6 +419,7 @@ declare module '@strapi/strapi' {
       'section.anchor-section': SectionAnchorSection;
       'section.card-items-section': SectionCardItemsSection;
       'section.column-table': SectionColumnTable;
+      'section.column-with-list': SectionColumnWithList;
       'section.divider-section': SectionDividerSection;
       'section.downloads-section': SectionDownloadsSection;
       'section.editorial-text-section': SectionEditorialTextSection;
@@ -391,6 +435,9 @@ declare module '@strapi/strapi' {
       'section.video-section': SectionVideoSection;
       'shared.icon-link': SharedIconLink;
       'shared.rows': SharedRows;
+      'ui.spec-column': UiSpecColumn;
+      'ui.spec-group': UiSpecGroup;
+      'ui.spec-item': UiSpecItem;
     }
   }
 }

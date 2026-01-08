@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_section_column_with_lists",
+  "info": {
+    "displayName": "Column With List"
+  },
+  "options": {},
+  "attributes": {
+    "columns": {
+      "type": "component",
+      "component": "ui.spec-column",
+      "repeatable": true
+    },
+    "columnsPerRow": {
+      "type": "enumeration",
+      "enum": [
+        "three",
+        "four"
+      ]
+    }
+  },
+  "config": {}
+}
