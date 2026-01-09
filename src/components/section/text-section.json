@@ -1,7 +1,7 @@
 {
   "collectionName": "components_section_text_sections",
   "info": {
-    "displayName": "text-section"
+    "displayName": "Text Section"
   },
   "options": {},
   "attributes": {
@@ -18,6 +18,14 @@
       "enum": [
         "small",
         "large"
+      ]
+    },
+    "variant": {
+      "type": "enumeration",
+      "default": "normal",
+      "enum": [
+        "normal",
+        "gray"
       ]
     }
   },

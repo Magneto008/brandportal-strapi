@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_row_list_items",
+  "info": {
+    "displayName": "rowListItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

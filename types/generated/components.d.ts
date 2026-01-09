@@ -301,6 +301,17 @@ export interface SectionPageHeaderSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionRowListSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_row_list_sections';
+  info: {
+    displayName: 'Row List Section';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'shared.row-list-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionSmallHeadingSection extends Struct.ComponentSchema {
   collectionName: 'components_section_small_heading_sections';
   info: {
@@ -328,13 +339,15 @@ export interface SectionStackedCardSection extends Struct.ComponentSchema {
 export interface SectionTextSection extends Struct.ComponentSchema {
   collectionName: 'components_section_text_sections';
   info: {
-    displayName: 'text-section';
+    displayName: 'Text Section';
   };
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     textSize: Schema.Attribute.Enumeration<['small', 'large']> &
       Schema.Attribute.DefaultTo<'large'>;
     title: Schema.Attribute.String;
+    variant: Schema.Attribute.Enumeration<['normal', 'gray']> &
+      Schema.Attribute.DefaultTo<'normal'>;
   };
 }
 
@@ -359,6 +372,17 @@ export interface SharedIconLink extends Struct.ComponentSchema {
     >;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedRowListItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_row_list_items';
+  info: {
+    displayName: 'rowListItem';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -433,11 +457,13 @@ declare module '@strapi/strapi' {
       'section.image-slider': SectionImageSlider;
       'section.list-section': SectionListSection;
       'section.page-header-section': SectionPageHeaderSection;
+      'section.row-list-section': SectionRowListSection;
       'section.small-heading-section': SectionSmallHeadingSection;
       'section.stacked-card-section': SectionStackedCardSection;
       'section.text-section': SectionTextSection;
       'section.video-section': SectionVideoSection;
       'shared.icon-link': SharedIconLink;
+      'shared.row-list-item': SharedRowListItem;
       'shared.rows': SharedRows;
       'ui.spec-column': UiSpecColumn;
       'ui.spec-group': UiSpecGroup;

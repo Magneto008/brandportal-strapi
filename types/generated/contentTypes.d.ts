@@ -924,6 +924,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'section.image-slider',
         'section.image-info',
         'section.column-with-list',
+        'section.row-list-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
