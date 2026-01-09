@@ -430,45 +430,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiBrandPageBrandPage extends Struct.CollectionTypeSchema {
-  collectionName: 'brand_pages';
-  info: {
-    displayName: 'BrandPages';
-    pluralName: 'brand-pages';
-    singularName: 'brand-page';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::brand-page.brand-page'
-    > &
-      Schema.Attribute.Private;
-    order: Schema.Attribute.Integer;
-    publishedAt: Schema.Attribute.DateTime;
-    sections: Schema.Attribute.DynamicZone<
-      [
-        'section.page-header-section',
-        'section.image-section',
-        'section.editorial-text-section',
-        'section.divider-section',
-        'section.video-section',
-      ]
-    >;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
   collectionName: 'countries';
   info: {
@@ -606,35 +567,6 @@ export interface ApiForgotPasswordPageForgotPasswordPage
           localized: true;
         };
       }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiGuidelinesPageGuidelinesPage
-  extends Struct.SingleTypeSchema {
-  collectionName: 'guidelines_pages';
-  info: {
-    displayName: 'GuidelinesPage';
-    pluralName: 'guidelines-pages';
-    singularName: 'guidelines-page';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    heading: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::guidelines-page.guidelines-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1534,11 +1466,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::brand-page.brand-page': ApiBrandPageBrandPage;
       'api::country.country': ApiCountryCountry;
       'api::footer.footer': ApiFooterFooter;
       'api::forgot-password-page.forgot-password-page': ApiForgotPasswordPageForgotPasswordPage;
-      'api::guidelines-page.guidelines-page': ApiGuidelinesPageGuidelinesPage;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::login-page.login-page': ApiLoginPageLoginPage;
