@@ -66,6 +66,7 @@ export default {
         provider: "local",
         confirmed: true,
         blocked: false,
+        role: 1,
         firstName,
         lastName,
         company,

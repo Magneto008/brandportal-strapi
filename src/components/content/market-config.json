@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_market_configs",
+  "info": {
+    "displayName": "Market Config",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "markets": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}

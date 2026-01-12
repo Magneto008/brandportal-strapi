@@ -104,6 +104,17 @@ export interface ContentLoginPageHeader extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentMarketConfig extends Struct.ComponentSchema {
+  collectionName: 'components_content_market_configs';
+  info: {
+    displayName: 'Market Config';
+    icon: 'bulletList';
+  };
+  attributes: {
+    markets: Schema.Attribute.JSON;
+  };
+}
+
 export interface ContentNavItems extends Struct.ComponentSchema {
   collectionName: 'components_content_nav_items';
   info: {
@@ -361,6 +372,21 @@ export interface SectionVideoSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedFormField extends Struct.ComponentSchema {
+  collectionName: 'components_shared_form_fields';
+  info: {
+    displayName: 'form-field';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean;
+    type: Schema.Attribute.Enumeration<['text', 'email', 'password']>;
+  };
+}
+
 export interface SharedIconLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_icon_links';
   info: {
@@ -394,6 +420,20 @@ export interface SharedRows extends Struct.ComponentSchema {
   attributes: {
     content: Schema.Attribute.RichText;
     label: Schema.Attribute.String;
+  };
+}
+
+export interface UiForm extends Struct.ComponentSchema {
+  collectionName: 'components_ui_forms';
+  info: {
+    displayName: 'form';
+    icon: 'bulletList';
+  };
+  attributes: {
+    fields: Schema.Attribute.Component<'shared.form-field', true>;
+    formTitle: Schema.Attribute.String;
+    submitLabel: Schema.Attribute.String;
+    successMessage: Schema.Attribute.String;
   };
 }
 
@@ -440,6 +480,7 @@ declare module '@strapi/strapi' {
       'content.language-item': ContentLanguageItem;
       'content.list': ContentList;
       'content.login-page-header': ContentLoginPageHeader;
+      'content.market-config': ContentMarketConfig;
       'content.nav-items': ContentNavItems;
       'content.stacked-card': ContentStackedCard;
       'section.accordion-end': SectionAccordionEnd;
@@ -462,9 +503,11 @@ declare module '@strapi/strapi' {
       'section.stacked-card-section': SectionStackedCardSection;
       'section.text-section': SectionTextSection;
       'section.video-section': SectionVideoSection;
+      'shared.form-field': SharedFormField;
       'shared.icon-link': SharedIconLink;
       'shared.row-list-item': SharedRowListItem;
       'shared.rows': SharedRows;
+      'ui.form': UiForm;
       'ui.spec-column': UiSpecColumn;
       'ui.spec-group': UiSpecGroup;
       'ui.spec-item': UiSpecItem;

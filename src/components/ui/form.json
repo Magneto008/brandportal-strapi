@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_ui_forms",
+  "info": {
+    "displayName": "form",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "formTitle": {
+      "type": "string"
+    },
+    "submitLabel": {
+      "type": "string"
+    },
+    "successMessage": {
+      "type": "string"
+    },
+    "fields": {
+      "type": "component",
+      "component": "shared.form-field",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
