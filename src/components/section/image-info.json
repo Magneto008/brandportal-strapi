@@ -5,9 +5,6 @@
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -16,15 +13,17 @@
         "images"
       ]
     },
-    "content": {
-      "type": "richtext"
-    },
     "imagePosition": {
       "type": "enumeration",
       "enum": [
         "left",
         "right"
       ]
+    },
+    "items": {
+      "type": "component",
+      "component": "shared.image-info-item",
+      "repeatable": true
     }
   },
   "config": {}

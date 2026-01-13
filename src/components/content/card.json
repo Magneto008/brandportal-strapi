@@ -26,6 +26,9 @@
     },
     "isFeatured": {
       "type": "boolean"
+    },
+    "ctaLabel": {
+      "type": "string"
     }
   },
   "config": {}

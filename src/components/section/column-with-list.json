@@ -13,6 +13,7 @@
     "columnsPerRow": {
       "type": "enumeration",
       "enum": [
+        "two",
         "three",
         "four"
       ]

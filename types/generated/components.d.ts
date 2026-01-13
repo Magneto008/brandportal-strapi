@@ -20,6 +20,7 @@ export interface ContentCard extends Struct.ComponentSchema {
     displayName: 'card';
   };
   attributes: {
+    ctaLabel: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images'>;
     imageAlt: Schema.Attribute.String;
@@ -202,7 +203,7 @@ export interface SectionColumnWithList extends Struct.ComponentSchema {
   };
   attributes: {
     columns: Schema.Attribute.Component<'ui.spec-column', true>;
-    columnsPerRow: Schema.Attribute.Enumeration<['three', 'four']>;
+    columnsPerRow: Schema.Attribute.Enumeration<['two', 'three', 'four']>;
   };
 }
 
@@ -260,10 +261,9 @@ export interface SectionImageInfo extends Struct.ComponentSchema {
     displayName: 'Image Info';
   };
   attributes: {
-    content: Schema.Attribute.RichText;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imagePosition: Schema.Attribute.Enumeration<['left', 'right']>;
-    title: Schema.Attribute.String;
+    items: Schema.Attribute.Component<'shared.image-info-item', true>;
   };
 }
 
@@ -354,8 +354,8 @@ export interface SectionTextSection extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
-    textSize: Schema.Attribute.Enumeration<['small', 'large']> &
-      Schema.Attribute.DefaultTo<'large'>;
+    textSize: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
+      Schema.Attribute.DefaultTo<'medium'>;
     title: Schema.Attribute.String;
     variant: Schema.Attribute.Enumeration<['normal', 'gray']> &
       Schema.Attribute.DefaultTo<'normal'>;
@@ -398,6 +398,18 @@ export interface SharedIconLink extends Struct.ComponentSchema {
     >;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedImageInfoItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_image_info_items';
+  info: {
+    displayName: 'Image Info Item';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    list: Schema.Attribute.Component<'content.list', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -505,6 +517,7 @@ declare module '@strapi/strapi' {
       'section.video-section': SectionVideoSection;
       'shared.form-field': SharedFormField;
       'shared.icon-link': SharedIconLink;
+      'shared.image-info-item': SharedImageInfoItem;
       'shared.row-list-item': SharedRowListItem;
       'shared.rows': SharedRows;
       'ui.form': UiForm;

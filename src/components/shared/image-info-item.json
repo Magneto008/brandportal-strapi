@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_image_info_items",
+  "info": {
+    "displayName": "Image Info Item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "list": {
+      "type": "component",
+      "component": "content.list",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
