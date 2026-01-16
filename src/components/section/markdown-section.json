@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_section_markdown_sections",
+  "info": {
+    "displayName": "Markdown Section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "maxWidth": {
+      "type": "enumeration",
+      "enum": [
+        "narrow",
+        "normal",
+        "wide"
+      ]
+    },
+    "centered": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

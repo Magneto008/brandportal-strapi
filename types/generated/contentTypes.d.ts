@@ -857,6 +857,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'section.image-info',
         'section.column-with-list',
         'section.row-list-section',
+        'section.markdown-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

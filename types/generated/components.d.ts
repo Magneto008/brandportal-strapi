@@ -301,6 +301,19 @@ export interface SectionListSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionMarkdownSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_markdown_sections';
+  info: {
+    displayName: 'Markdown Section';
+  };
+  attributes: {
+    centered: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    content: Schema.Attribute.RichText;
+    maxWidth: Schema.Attribute.Enumeration<['narrow', 'normal', 'wide']>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionPageHeaderSection extends Struct.ComponentSchema {
   collectionName: 'components_section_page_header_sections';
   info: {
@@ -509,6 +522,7 @@ declare module '@strapi/strapi' {
       'section.image-section': SectionImageSection;
       'section.image-slider': SectionImageSlider;
       'section.list-section': SectionListSection;
+      'section.markdown-section': SectionMarkdownSection;
       'section.page-header-section': SectionPageHeaderSection;
       'section.row-list-section': SectionRowListSection;
       'section.small-heading-section': SectionSmallHeadingSection;
