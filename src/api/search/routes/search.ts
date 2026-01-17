@@ -5,7 +5,7 @@ export default {
       path: "/search",
       handler: "search.index",
       config: {
-        auth: false,
+        auth: { public: true },
       },
     },
   ],
